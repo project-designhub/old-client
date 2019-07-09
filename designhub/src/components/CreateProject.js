@@ -7,7 +7,11 @@ class CreateProject extends Component {
     this.state = {};
   }
   render() {
-    return <div>Please Create A New Project Here!</div>;
+    return (
+      <div>
+        <h1>Please Create A New Project Here!</h1>
+      </div>
+    );
   }
 }
 

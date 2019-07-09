@@ -4,10 +4,10 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./components/Dashboard";
 import Onboard from "./components/Onboard";
-
 import CreateProject from "./components/CreateProject";
 import UserProfile from "./components/UserProfile";
-
+import Projects from "./components/Projects";
+import Settings from "./components/Settings";
 
 function App() {
   return (
@@ -19,6 +19,8 @@ function App() {
         <PrivateRoute path="/onboard" component={Onboard} />
         <Route path="/createproject" component={CreateProject} />
         <Route path="/profile" component={UserProfile} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/settings" component={Settings} />
       </Switch>
     </div>
   );

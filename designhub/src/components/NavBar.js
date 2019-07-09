@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../auth0";
+import "../Navigation.css";
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -15,6 +16,9 @@ const NavBar = () => {
       {!isAuthenticated && <button onClick={loginHandler}>Log in</button>}
       {isAuthenticated && <button onClick={logoutHandler}>Log out</button>}
       <Link to="/profile">Profile</Link>
+      <Link to="/createproject">Create New Project</Link>
+      <Link to="/projects">Projects</Link>
+      <Link to="/settings">Settings</Link>
     </div>
   );
 };
