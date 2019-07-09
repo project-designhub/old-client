@@ -1,5 +1,6 @@
-import React from 'react';
-import { useAuth0 } from '../auth0';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "../auth0";
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -13,6 +14,7 @@ const NavBar = () => {
     <div>
       {!isAuthenticated && <button onClick={loginHandler}>Log in</button>}
       {isAuthenticated && <button onClick={logoutHandler}>Log out</button>}
+      <Link to="/profile">Profile</Link>
     </div>
   );
 };
