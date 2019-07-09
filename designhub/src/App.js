@@ -4,7 +4,10 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./components/Dashboard";
 import Onboard from "./components/Onboard";
+
+import CreateProject from "./components/CreateProject";
 import UserProfile from "./components/UserProfile";
+
 
 function App() {
   return (
@@ -14,6 +17,7 @@ function App() {
         <Route exact path="/" />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/onboard" component={Onboard} />
+        <Route path="/createproject" component={CreateProject} />
         <Route path="/profile" component={UserProfile} />
       </Switch>
     </div>
