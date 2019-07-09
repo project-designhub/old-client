@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
@@ -9,6 +10,7 @@ export const useAuth0 = () => useContext(Auth0Context);
 export const Auth0Provider = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
+  history,
   ...initOptions
 }) => {
   const [isAuthenticated, setIsAuthenticated] = useState();
@@ -34,6 +36,23 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
+
+        console.log(user);
+
+        const postUser = {
+          email: user.email,
+          profile_picture: user.picture,
+          username: user.nickname
+        };
+
+        axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, postUser)
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
 
       setLoading(false);
