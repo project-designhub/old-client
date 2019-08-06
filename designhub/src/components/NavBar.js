@@ -1,20 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth0 } from "../auth0";
+import React from 'react';
+import { useAuth0 } from '../auth/authWrapper';
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const loginHandler = () => {
-    loginWithRedirect({});
-  };
-  const logoutHandler = () => {
-    logout();
-  };
+
   return (
     <div>
-      {!isAuthenticated && <button onClick={loginHandler}>Log in</button>}
-      {isAuthenticated && <button onClick={logoutHandler}>Log out</button>}
-      <Link to="/profile">Profile</Link>
+      {!isAuthenticated && (
+        <button onClick={() => loginWithRedirect({})}>Log in</button>
+      )}
+
+      {isAuthenticated && <button onClick={() => logout()}>Log out</button>}
     </div>
   );
 };

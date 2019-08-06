@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, withRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { Auth0Provider } from './auth0';
-import config from './config_auth';
+import { Auth0Provider } from './auth/authWrapper';
+import config from './auth/authConfig';
 
 const onRedirectCallback = appState => {
   window.history.replaceState(
@@ -16,16 +16,18 @@ const onRedirectCallback = appState => {
   );
 };
 
+const AppWithRouter = withRouter(App);
+
 ReactDOM.render(
-  <Auth0Provider
-    domain={config.domain}
-    client_id={config.clientId}
-    redirect_uri={window.location.origin}
-    onRedirectCallback={onRedirectCallback}
-  >
-    <Router>
-      <App />
-    </Router>
-  </Auth0Provider>,
+  <Router>
+    <Auth0Provider
+      domain={config.domain}
+      client_id={config.clientId}
+      redirect_uri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <AppWithRouter />
+    </Auth0Provider>
+  </Router>,
   document.getElementById('root')
 );

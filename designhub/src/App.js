@@ -1,13 +1,12 @@
-import React from "react";
-import NavBar from "./components/NavBar";
-import { Switch, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
-import Dashboard from "./components/Dashboard";
-import Onboard from "./components/Onboard";
+import React from 'react';
+import NavBar from './components/NavBar';
+import { Switch, Route } from 'react-router-dom';
+import PrivateRoute from './auth/PrivateRoute';
+import Dashboard from './components/Dashboard';
+import Onboard from './components/Onboard';
 
-import CreateProject from "./components/CreateProject";
-import UserProfile from "./components/UserProfile";
-
+import CreateProject from './components/CreateProject';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (

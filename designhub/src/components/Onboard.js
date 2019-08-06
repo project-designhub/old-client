@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react';
 
-const Onboard = () => {
-  return (
-    <div>
-      this is the onboard
-    </div>
-  )
+export class Onboard extends Component {
+  state = {};
+  render() {
+    return <div />;
+  }
 }
 
-export default Onboard
+export default Onboard;
