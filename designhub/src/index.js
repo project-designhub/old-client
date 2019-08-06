@@ -17,17 +17,18 @@ const onRedirectCallback = appState => {
 };
 
 const AppWithRouter = withRouter(App);
+const Auth0ProviderWithRouter = withRouter(Auth0Provider);
 
 ReactDOM.render(
   <Router>
-    <Auth0Provider
+    <Auth0ProviderWithRouter
       domain={config.domain}
       client_id={config.clientId}
       redirect_uri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       <AppWithRouter />
-    </Auth0Provider>
+    </Auth0ProviderWithRouter>
   </Router>,
   document.getElementById('root')
 );

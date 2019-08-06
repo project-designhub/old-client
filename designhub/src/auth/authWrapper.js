@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-const DEFAULT_REDIRECT_CALLBACK = () =>
+const DEFAULT_REDIRECT_CALLBACK = ({}) =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
 export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
 export const Auth0Provider = ({
+  history,
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
   ...initOptions
@@ -33,18 +34,24 @@ export const Auth0Provider = ({
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
+        // this is where the magic happens
+        // if authenticated is true, grab the user from auth0 and set it to user useState
         const user = await auth0FromHook.getUser();
         setUser(user);
-        const postUser = {
-          email: user.email,
-          profile_picture: user.picture,
-          username: user.nickname
-        };
 
+        // send the whole user object to the server
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, postUser)
+          .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, user)
           .then(res => {
-            console.log(res.data);
+            // send token from the server to localstorage -> this is for private routes
+            localStorage.token = res.data.token;
+            if (!res.data.user.username) {
+              // if username doesn't exist, it's a new user and must be onboarded
+              history.push('/onboard');
+            } else {
+              // if not push to the dashboard.
+              history.push('/dashboard');
+            }
           })
           .catch(err => {
             console.log(err);
