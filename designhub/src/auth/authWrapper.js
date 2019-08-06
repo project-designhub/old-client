@@ -38,11 +38,16 @@ export const Auth0Provider = ({
         // if authenticated is true, grab the user from auth0 and set it to user useState
         const user = await auth0FromHook.getUser();
         setUser(user);
-        console.log(user);
+        const modUser = {
+          email: user.email,
+          sub: user.sub,
+          username: user.nickname,
+          profile_picture: user.picture,
+          full_name: user.name
+        };
 
-        // send the whole user object to the server
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, user)
+          .post(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, modUser)
           .then(res => {
             // send token from the server to localstorage -> this is for private routes
             localStorage.token = res.data.token;
