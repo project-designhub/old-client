@@ -35,14 +35,6 @@ export class Onboard extends Component {
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleChanges}
-            placeholder="Username"
-            required
-          />
-          <input
-            type="text"
             name="full_name"
             value={this.state.full_name}
             onChange={this.handleChanges}

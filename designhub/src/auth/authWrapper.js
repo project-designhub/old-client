@@ -38,6 +38,7 @@ export const Auth0Provider = ({
         // if authenticated is true, grab the user from auth0 and set it to user useState
         const user = await auth0FromHook.getUser();
         setUser(user);
+        console.log(user);
 
         // send the whole user object to the server
         axios
@@ -45,13 +46,7 @@ export const Auth0Provider = ({
           .then(res => {
             // send token from the server to localstorage -> this is for private routes
             localStorage.token = res.data.token;
-            if (!res.data.user.username) {
-              // if username doesn't exist, it's a new user and must be onboarded
-              history.push('/onboard');
-            } else {
-              // if not push to the dashboard.
-              history.push('/dashboard');
-            }
+            history.push('/dashboard');
           })
           .catch(err => {
             console.log(err);
